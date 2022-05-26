@@ -6,19 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }} | @yield('pageTitle')</title>
 
-    <!-- JS -->
     <script src="{{ asset('js/admin.js') }}" defer></script>
-
-    <!-- STYLE -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
 </head>
-
 <body>
+    <x-navbar color="dark" />
 
-    @include('partials.header')
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-2">
 
-    @yield('pageMain')
+                <div><a href="{{ route('admin.posts.index') }}">ALL POSTS</a></div>
 
+                <div><a href="{{ route('admin.posts.create') }}">NEW POSTS</a></div>
+
+            </div>
+
+
+
+            <div class="col-10">
+                @yield('pageContent')
+            </div>
+
+
+
+            
+        </div>
+    </div>
 </body>
 </html>
