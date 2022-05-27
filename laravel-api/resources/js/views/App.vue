@@ -3,7 +3,7 @@
 
        <header-posts/>
 
-       <posts-container/>
+       <router-view></router-view>
 
    </div>
  </template>
