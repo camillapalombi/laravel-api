@@ -19,6 +19,7 @@ import PageHome from './pages/PageHome.vue';
 import PageAbout from './pages/PageAbout.vue';
 import PostIndex from './pages/PostIndex.vue';
 import PostShow from './pages/PostShow.vue';
+import Page404 from './pages/Page404.vue';
 
 const router = new VueRouter ({
     mode: 'history',
@@ -26,7 +27,12 @@ const router = new VueRouter ({
         {
             path: '/',
             name: 'home',
-            component: PageHome
+            component: PageHome,
+        },
+        {
+            path: '*',
+            name: 'page404',
+            component: Page404
         },
         {
             path: '/about',
@@ -41,7 +47,8 @@ const router = new VueRouter ({
         {
             path: '/blog/:slug',
             name: 'postShow',
-            component: PostShow
+            component: PostShow,
+            props: true
         }
     ]
 })

@@ -8,7 +8,7 @@
                       <img src="https://picsum.photos/seed/picsum/100/100" alt="">
                         <h5 class="card-title fs-2 fw-bold">{{ post.title }}</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio, magnam assumenda aut consectetur illo culpa harum repellendus ipsa iusto enim fugiat itaque non sit quaerat saepe delectus similique veritatis error?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad nulla beatae consequuntur ipsa, provident adipisci maxime suscipit. Tempore tempora reprehenderit, non quos dolor suscipit, temporibus illum porro reiciendis, minima corrupti.</p>
-                        <a :href="'/posts/' + post.slug" class="btn btn-primary mt-auto fw-bold">VIEW</a>
+                         <router-link :to="{name: 'postShow', params: {slug: post.slug}}" class="btn btn-primary mt-auto fw-bold"> VIEW </router-link>
                     </div>
                 </div>
             </div>
@@ -48,11 +48,11 @@
 
 <script>
 export default {
-    name: 'ContainerPosts',
+    name: 'PostIndex',
     data() {
         return {
             posts: [],
-            baseApiUrl: 'http://localhost:8000/api/posts',
+            baseApiUrl: 'http://localhost:8000/api/v1/posts',
             nNewPage: null,
             prevPageUrl: null,
             nextPageUrl: null,

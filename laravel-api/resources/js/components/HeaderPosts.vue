@@ -1,6 +1,6 @@
 <template>
   <header>
-      
+  
       <router-link :to="{ name: 'home' }" class="router-link"> HOME </router-link>
 
       <router-link :to="{ name: 'postIndex' }" class="router-link"> BLOG </router-link>

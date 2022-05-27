@@ -13,7 +13,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::paginate(15);
 
@@ -50,9 +50,24 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+       
+        $post = Post::with(['user', 'category', 'tags'])->where('slug', $slug)->first();
+        if ($post) {
+            return response()->json([
+                'success'   => true,
+                'response'  => [
+                    'data'      => $post,
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success'   => false,
+            ]);
+        }
+        
+    
     }
 
     /**
