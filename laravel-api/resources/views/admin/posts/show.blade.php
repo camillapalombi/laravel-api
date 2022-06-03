@@ -2,11 +2,12 @@
 
 @section('pageTitle', $pageTitle)
 
-@section('pageMain')
+@section('pageContent')
     <div class="container">
         <div class="row g-4">
             <div class="col-8 mt-5 mb-5">
 
+                <img class="img-thumbnail" style="width: 200px" src="{{ asset('storage/'. $post->post_image )}}" alt="{{ $post->title }}">
                 <div class="fs-1"> <a class="title-link text-decoration-none" href="{{ route('admin.posts.show', $post->slug) }}">{{ $post->title }}</a> </div>
                 <div><h5 class="fw-bold" style="color: rgb(255, 119, 0)">Author:</h5>{{ $post->user->name }}</div>
                 @if ($post->user->userInfo && $post->user->userInfo->phone) <div><h5 class="fw-bold" style="color: rgb(255, 119, 0)">Phone number:</h5>{{ $post->user->userInfo->phone }}</div> @endif

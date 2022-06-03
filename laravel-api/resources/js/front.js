@@ -19,6 +19,7 @@ import PageHome from './pages/PageHome.vue';
 import PageAbout from './pages/PageAbout.vue';
 import PostIndex from './pages/PostIndex.vue';
 import PostShow from './pages/PostShow.vue';
+import PageContact from './pages/PageContact.vue';
 import Page404 from './pages/Page404.vue';
 
 const router = new VueRouter ({
@@ -38,6 +39,11 @@ const router = new VueRouter ({
             path: '/about',
             name: 'about',
             component: PageAbout
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: PageContact
         },
         {
             path: '/blog',

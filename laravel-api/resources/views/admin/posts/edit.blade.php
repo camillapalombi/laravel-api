@@ -2,11 +2,11 @@
 
 @section('pageTitle', 'Edit posts listing')
 
-@section('pageMain')
-    <div class="container">
+@section('pageContent')
+    <div class="container mb-5">
         <div class="row">
             <div class="col">
-                <form method="POST" action="{{ route('admin.posts.update', $post->slug ) }}">
+                <form method="POST" action="{{ route('admin.posts.update', $post->slug ) }}" enctype="multipart/form-data">
 
                     @csrf
                     @method('PUT')
@@ -35,6 +35,16 @@
                     @error('content')
                     <div class="alert alert-warning">{{ $message }}</div>
                     @enderror
+
+                    <div class="mb-4">
+                        <label for="post_image" class="form-label fw-bold" style="color: rgb(255, 119, 0)">Image</label>
+                        <input class="form-control" type="file" id="post_image" name="post_image" accept="image/*">
+                      </div>
+                      @error('post_image')
+                        <div class="alert alert-warning">{{ $message }}</div>
+                    @enderror
+                    <img class="mb-5" style="width: 100px" src="{{ asset('storage/'. $post->post_image )}}" alt="">
+
 
                     <div style="color: rgb(255, 119, 0)" class="fw-bold">Category:</div>
                     <select class="form-select" aria-label="Default select example" name="category_id" id="category">

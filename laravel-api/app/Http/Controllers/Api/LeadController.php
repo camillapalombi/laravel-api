@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Post;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PostController extends Controller
+use App\Lead;
+use Illuminate\Http\Request;
+use App\Mail\NewLeadToAdmin;
+use App\Mail\NewLeadToLead;
+use Illuminate\Support\Facades\Mail;
+
+class LeadController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $posts = Post::paginate(15);
-
-        return response()->json([
-            'status'    => 'success',
-            'response'  => $posts
-        ]);
+        //
     }
 
     /**
@@ -41,43 +40,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $lead = Lead::create($request->all());
+
+        Mail::to('admin.camilla@boolpress.com')->send(new NewLeadToAdmin($lead));
+
+        Mail::to($lead->email)->send(new NewLeadToLead($lead));
+
+        return response()->json([
+            'statusMessage' => 'Email inviata',
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Lead $lead)
     {
-       
-        $post = Post::with(['user', 'category', 'tags'])->where('slug', $slug)->first();
-        if ($post) {
-            $post->img_url = asset('storage/' . $post->post_image);
-            return response()->json([
-                'success'   => true,
-                'response'  => [
-                    'data'      => $post,
-                ]
-            ]);
-        } else {
-            return response()->json([
-                'success'   => false,
-            ]);
-        }
-        
-    
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Lead $lead)
     {
         //
     }
@@ -86,10 +77,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Lead $lead)
     {
         //
     }
@@ -97,10 +88,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lead $lead)
     {
         //
     }

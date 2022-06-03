@@ -11,6 +11,7 @@ use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -98,11 +99,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate($this->getValidators(null));
 
-        $formData = $request->all() + [
-            'user_id' => Auth::user()->id
-        ];
+        $data = $request->all();
+
+        $img_path = Storage::put('uploads', $data['post_image']);
+
+        $formData = [
+            'user_id' => Auth::user()->id,
+            'post_image' => $img_path
+        ] + $data;
+        
         $post = Post::create($formData);
 
         $post->tags()->attach($formData['tags']);
@@ -161,9 +169,22 @@ class PostController extends Controller
         $request->validate($this->getValidators($post));
 
         $formData = $request->all();
-        $post->update($formData);
+        
 
         $post->tags()->sync($formData['tags']);
+
+        if (array_key_exists('post_image', $formData)) {
+            Storage::delete($post->post_image);
+
+            $img_path = Storage::put('uploads', $formData['post_image']);
+
+            $formData = [
+                'post_image' => $img_path
+            ] + $formData;
+
+        }
+
+        $post->update($formData);
 
         return redirect()->route('admin.posts.show', $post->slug);
     }

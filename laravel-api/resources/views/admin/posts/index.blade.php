@@ -2,7 +2,7 @@
 
 @section('pageTitle', 'Posts Listing')
 
-@section('pageMain')
+@section('pageContent')
 
 <div class="container">
     @if (session('deleted'))

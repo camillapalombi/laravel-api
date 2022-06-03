@@ -3,6 +3,8 @@
 
         <h1>{{ post.title }}</h1>
         <p>{{ post.content }}</p>
+        <img class="img-thumbnail" style="width: 200px" :src="post.img_url" :alt="post.title">
+
       
   </div>
 </template>
